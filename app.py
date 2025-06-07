@@ -22,8 +22,9 @@ def load_standard_patterns():
 
 @st.cache_resource
 def load_bert_model():
-    model = BertForSequenceClassification.from_pretrained("bert_layer_model")
-    tokenizer = BertTokenizerFast.from_pretrained("bert_layer_model")
+    model_path = os.path.join(os.getcwd(), "bert_layer_model")
+    model = BertForSequenceClassification.from_pretrained(model_path)
+    tokenizer = BertTokenizerFast.from_pretrained(model_path)
     return model, tokenizer
 
 bert_model, bert_tokenizer = load_bert_model()
