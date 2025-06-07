@@ -174,3 +174,10 @@ if st.button("Check Prompt"):
         st.markdown("---")
         st.subheader("🧠 Final Decision")
         st.success(result_map[combined])
+
+# Footer
+st.markdown("---")
+st.markdown(
+    "<div style='text-align: center; color: gray;'>Made with ❤️ by <b>Omar Fathy</b></div>",
+    unsafe_allow_html=True
+)
