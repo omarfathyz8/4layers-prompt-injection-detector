@@ -144,29 +144,29 @@ def llm_layer(prompt: str) -> int:
         return 1  # treat as malicious by default
 
 # ========== UI Starts Here ==========
-st.set_page_config(page_title="Prompt Guard", layout="centered")
-st.title("🔐 Prompt Injection Detection (4-Layer System)")
+st.title("🛡️ Prompt Injection Detector (4-Layer System)")
 
 # User input
 user_prompt = st.text_area("Enter a prompt to check:", height=150)
 
 # On submit
-if st.button("Check Prompt"):
+if st.button("🔍 Analyze Prompt"):
     if not user_prompt.strip():
         st.warning("Please enter a prompt first.")
     else:
         patterns = load_standard_patterns()
-        
-        layer1 = standard_layer(user_prompt, patterns)
-        layer2 = heuristic_layer(user_prompt)
-        layer3 = bert_layer(user_prompt)
-        layer4 = llm_layer(user_prompt)
+
+        with st.spinner("Analyzing..."):
+            layer1 = standard_layer(user_prompt, patterns)
+            layer2 = heuristic_layer(user_prompt)
+            layer3 = bert_layer(user_prompt)
+            layer4 = llm_layer(user_prompt)
 
         combined = int(any([layer1, layer2, layer3, layer4]))
 
         result_map = {0: "✅ Safe", 1: "⚠️ Malicious"}
 
-        st.subheader("🔍 Results")
+        st.subheader("🧪 Results")
         st.write(f"**Standard Layer:** {result_map[layer1]}")
         st.write(f"**Heuristic Layer:** {result_map[layer2]}")
         st.write(f"**BERT Layer:** {result_map[layer3]}")
@@ -174,11 +174,7 @@ if st.button("Check Prompt"):
 
         st.markdown("---")
         st.subheader("🧠 Final Decision")
-        st.success(result_map[combined])
-
-# Footer
-st.markdown("---")
-st.markdown(
-    "<div style='text-align: center; color: gray;'>Made with ❤️ by <b>Omar Fathy</b></div>",
-    unsafe_allow_html=True
-)
+        if result_map[combined]:
+            st.error(result_map[combined])
+        else:
+            st.success(result_map[combined])
