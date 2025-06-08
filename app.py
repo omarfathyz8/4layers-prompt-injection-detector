@@ -6,7 +6,7 @@ import json
 import pandas as pd
 from transformers import BertTokenizerFast, BertForSequenceClassification
 import torch
-from sentence_transformers import SentenceTransformer, util
+from sentence_transformers import SentenceTransformer
 
 # Streamlit page settings
 st.set_page_config(
