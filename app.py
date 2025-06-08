@@ -23,14 +23,15 @@ def load_standard_patterns():
 
 @st.cache_resource
 def load_bert_model():
-    return SentenceTransformer('sentence-transformers/gtr-t5-large')
-    # model_path = os.path.join(os.getcwd(), "bert_layer_model")
-    # model = BertForSequenceClassification.from_pretrained(model_path)
-    # tokenizer = BertTokenizerFast.from_pretrained(model_path)
-    # return model, tokenizer
+    # return SentenceTransformer('sentence-transformers/gtr-t5-large')
+    tokenizer = BertTokenizerFast.from_pretrained("./bert_model")
+    model = BertForSequenceClassification.from_pretrained("./bert_model")
+    model.eval()
+    return tokenizer, model
+    return model, tokenizer
 
-# bert_model, bert_tokenizer = load_bert_model()
-bert_model = load_bert_model()
+bert_model, bert_tokenizer = load_bert_model()
+# bert_model = load_bert_model()
 
 suspicious_keywords = [
     "ignore", "disregard", "override", "bypass", "forget", "remove",
