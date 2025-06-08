@@ -1,4 +1,3 @@
-SentenceTransformer
 streamlit==1.32.0
 numpy==1.26.0
 transformers==4.38.0
@@ -6,3 +5,4 @@ torch==2.2.0
 openai==1.12.0
 scikit-learn==1.4.0
 pandas==2.1.0
+sentence-transformers==2.2.2
