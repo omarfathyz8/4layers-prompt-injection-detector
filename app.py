@@ -23,14 +23,12 @@ def load_standard_patterns():
 
 @st.cache_resource
 def load_bert_model():
-    # return SentenceTransformer('sentence-transformers/gtr-t5-large')
-    tokenizer = BertTokenizerFast.from_pretrained("./bert_model")
-    model = BertForSequenceClassification.from_pretrained("./bert_model")
+    tokenizer = BertTokenizerFast.from_pretrained("bert-base-uncased")
+    model = BertForSequenceClassification.from_pretrained("bert-base-uncased", num_labels=2)
     model.eval()
     return model, tokenizer
 
 bert_model, bert_tokenizer = load_bert_model()
-# bert_model = load_bert_model()
 
 suspicious_keywords = [
     "ignore", "disregard", "override", "bypass", "forget", "remove",
@@ -118,14 +116,11 @@ def heuristic_layer(prompt: str, threshold: int = 3) -> int:
 
 # ========== Layer 3: BERT Layer (Mocked) ==========
 def bert_layer(prompt: str) -> int:
-    # prompt_embedding = bert_model.encode([prompt])[0]
-    # sim_to_safe = cosine_similarity([prompt_embedding], [safe_embedding])[0][0]
-    # sim_to_injected = cosine_similarity([prompt_embedding], [injected_embedding])[0][0]
-    # return 0 if sim_to_safe > sim_to_injected else 1  # 0 = Safe, 1 = Injected
     inputs = bert_tokenizer(prompt, return_tensors="pt", truncation=True, padding=True, max_length=128)
-    outputs = bert_model(**inputs)
-    logits = outputs.logits
-    prediction = torch.argmax(logits, dim=1).item()
+    with torch.no_grad():
+        outputs = bert_model(**inputs)
+        logits = outputs.logits
+        prediction = torch.argmax(logits, dim=1).item()
     return prediction  # 0 = Safe, 1 = Injected
 
 # ========== Layer 4: LLM Layer (Mocked) ==========
