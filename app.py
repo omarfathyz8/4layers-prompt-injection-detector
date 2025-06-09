@@ -4,10 +4,8 @@ import numpy as np
 import openai
 import json
 import pandas as pd
-from transformers import BertTokenizerFast, BertForSequenceClassification
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 import torch
-from sentence_transformers import SentenceTransformer
 
 # Streamlit page settings
 st.set_page_config(
@@ -169,15 +167,28 @@ if st.button("🔍 Analyze Prompt"):
 
         result_map = {0: "✅ Safe", 1: "⚠️ Malicious"}
 
-        st.subheader("🧪 Results")
-        st.write(f"**Standard Layer:** {result_map[layer1]}")
-        st.write(f"**Heuristic Layer:** {result_map[layer2]}")
-        st.write(f"**BERT Layer:** {result_map[layer3]}")
-        st.write(f"**LLM Layer:** {result_map[layer4]}")
-
+        st.subheader("🧪 Layer-by-Layer Results")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.markdown("**🧱 Standard Layer**")
+            st.info(result_map[layer1])
+        
+            st.markdown("**🧠 Heuristic Layer**")
+            st.info(result_map[layer2])
+        
+        with col2:
+            st.markdown("**🤖 BERT Layer**")
+            st.info(result_map[layer3])
+        
+            st.markdown("**💬 LLM Layer**")
+            st.info(result_map[layer4])
+        
         st.markdown("---")
-        st.subheader("🧠 Final Decision")
-        if result_map[combined]:
-            st.error(result_map[combined])
+        st.subheader("🔒 Final Decision")
+        
+        if result_map[combined] == "Injected":
+            st.error("🚨 Prompt is potentially **Injected**")
         else:
-            st.success(result_map[combined])
+            st.success("✅ Prompt is **Safe**")
