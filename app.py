@@ -162,6 +162,8 @@ st.title("🛡️4-Layer Prompt Injection Detector")
 # User input
 user_prompt = st.text_area("Enter a prompt to check:", height=150)
 
+api_key = st.text_input("Enter your OpenAI API Key", type="password")
+
 # On submit
 if st.button("🔍 Analyze Prompt"):
     if not user_prompt.strip():
@@ -173,8 +175,15 @@ if st.button("🔍 Analyze Prompt"):
             layer1 = standard_layer(user_prompt, patterns)
             layer2 = heuristic_layer(user_prompt)
             layer3 = bert_layer(user_prompt)
-            layer4 = llm_layer(user_prompt)
 
+        if api_key.strip():
+            openai.api_key = api_key
+            with st.spinner("Running GPT Security Audit..."):
+                try:
+                    layer4 = llm_layer(user_prompt)
+                except Exception as e:
+                    st.error(f"LLM Error: {e}")
+        
         combined = int(any([layer1, layer2, layer3, layer4]))
 
         result_map = {0: "✅ Safe", 1: "⚠️ Malicious"}
