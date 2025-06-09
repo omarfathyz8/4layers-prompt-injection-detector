@@ -184,6 +184,12 @@ if st.button("🔍 Analyze Prompt"):
         combined = int(any([layer1, layer2, layer3, layer4]))
 
         result_map = {0: "✅ Safe", 1: "⚠️ Malicious"}
+        
+        st.markdown(result_map[layer1])
+        st.markdown(result_map[layer2])
+        st.markdown(result_map[layer3])
+        st.markdown(result_map[layer4])
+        st.markdown(result_map[combined])
 
         st.subheader("🔒 Final Decision")
         
