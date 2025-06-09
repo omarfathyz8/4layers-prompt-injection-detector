@@ -144,8 +144,7 @@ def llm_layer(prompt: str) -> int:
         return 1  # treat as malicious by default
 
 # ========== UI Starts Here ==========
-st.markdown("<h1 style='text-align: center;'>🛡️ Prompt Injection Detector</h1>", unsafe_allow_html=True)
-st.markdown("<h2 style='text-align: center;'>(4-Layer System)</h2>", unsafe_allow_html=True)
+st.title("🛡️4-Layer Prompt Injection Detector")
 
 # User input
 user_prompt = st.text_area("Enter a prompt to check:", height=150)
