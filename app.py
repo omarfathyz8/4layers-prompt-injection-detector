@@ -153,7 +153,7 @@ def llm_layer(prompt: str) -> int:
             return 1  # fallback
 
     except Exception as e:
-        st.error(f"LLM Error: {e}")
+        st.error(f"LLM Error1: {e}")
         return 1
 
 # ========== UI Starts Here ==========
@@ -182,7 +182,7 @@ if st.button("🔍 Analyze Prompt"):
                 try:
                     layer4 = llm_layer(user_prompt)
                 except Exception as e:
-                    st.error(f"LLM Error: {e}")
+                    st.error(f"LLM Error2: {e}")
         
         combined = int(any([layer1, layer2, layer3, layer4]))
 
