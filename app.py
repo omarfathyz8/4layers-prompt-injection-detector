@@ -193,7 +193,7 @@ if st.button("🔍 Analyze Prompt"):
 
         st.subheader("🔒 Final Decision")
         
-        if result_map[combined]:
+        if combined:
             st.error("🚨 Prompt is potentially **Injected**")
         else:
             st.success("✅ Prompt is **Safe**")
