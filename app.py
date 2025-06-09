@@ -23,8 +23,9 @@ def load_standard_patterns():
 
 @st.cache_resource
 def load_bert_model():
-    tokenizer = BertTokenizerFast.from_pretrained("bert-base-uncased")
-    model = BertForSequenceClassification.from_pretrained("bert-base-uncased", num_labels=2)
+    model_name = "textattack/bert-base-uncased-imdb"  # for sentiment (binary)
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    model = AutoModelForSequenceClassification.from_pretrained(model_name)
     model.eval()
     return model, tokenizer
 
@@ -121,7 +122,8 @@ def bert_layer(prompt: str) -> int:
         outputs = bert_model(**inputs)
         logits = outputs.logits
         prediction = torch.argmax(logits, dim=1).item()
-    return prediction  # 0 = Safe, 1 = Injected
+    # Convert: 0 → 1 (Injected), 1 → 0 (Safe)
+    return 1 if prediction == 0 else 0
 
 # ========== Layer 4: LLM Layer (Mocked) ==========
 def llm_layer(prompt: str) -> int:
