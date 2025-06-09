@@ -5,6 +5,7 @@ import openai
 import json
 import pandas as pd
 from transformers import BertTokenizerFast, BertForSequenceClassification
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
 import torch
 from sentence_transformers import SentenceTransformer
 
