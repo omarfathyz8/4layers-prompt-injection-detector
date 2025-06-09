@@ -166,6 +166,15 @@ if st.button("🔍 Analyze Prompt"):
 
         result_map = {0: "✅ Safe", 1: "⚠️ Malicious"}
 
+                st.subheader("🔒 Final Decision")
+        
+        if result_map[combined]:
+            st.error("🚨 Prompt is potentially **Injected**")
+        else:
+            st.success("✅ Prompt is **Safe**")
+
+        st.markdown("---")
+
         st.subheader("🧪 Layer-by-Layer Results")
         
         col1, col2 = st.columns(2)
@@ -183,11 +192,4 @@ if st.button("🔍 Analyze Prompt"):
         
             st.markdown("**💬 LLM Layer**")
             st.info(result_map[layer4])
-        
-        st.markdown("---")
-        st.subheader("🔒 Final Decision")
-        
-        if result_map[combined]:
-            st.error("🚨 Prompt is potentially **Injected**")
-        else:
-            st.success("✅ Prompt is **Safe**")
+    
