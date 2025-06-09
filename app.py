@@ -188,7 +188,7 @@ if st.button("🔍 Analyze Prompt"):
         st.markdown("---")
         st.subheader("🔒 Final Decision")
         
-        if result_map[combined] == "Injected":
+        if result_map[combined] == 1:
             st.error("🚨 Prompt is potentially **Injected**")
         else:
             st.success("✅ Prompt is **Safe**")
