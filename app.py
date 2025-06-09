@@ -143,7 +143,8 @@ def llm_layer(prompt: str) -> int:
         return 1  # treat as malicious by default
 
 # ========== UI Starts Here ==========
-st.title("🛡️ Prompt Injection Detector (4-Layer System)")
+st.title("🛡️ Prompt Injection Detector")
+st.title("(4-Layer System)")
 
 # User input
 user_prompt = st.text_area("Enter a prompt to check:", height=150)
