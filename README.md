@@ -2,8 +2,6 @@
 
 A multi-layered security tool to detect and prevent prompt injection attacks in LLM applications.
 
-![Demo](https://via.placeholder.com/800x400?text=Prompt+Injection+Detector+Demo) <!-- Replace with actual screenshot -->
-
 ## 🔍 Overview
 This application analyzes user prompts using a 4-layer detection system:
 1. **Standard Layer**: Regex pattern matching
