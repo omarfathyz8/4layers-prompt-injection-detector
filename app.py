@@ -166,7 +166,7 @@ if st.button("🔍 Analyze Prompt"):
 
         result_map = {0: "✅ Safe", 1: "⚠️ Malicious"}
 
-                st.subheader("🔒 Final Decision")
+        st.subheader("🔒 Final Decision")
         
         if result_map[combined]:
             st.error("🚨 Prompt is potentially **Injected**")
