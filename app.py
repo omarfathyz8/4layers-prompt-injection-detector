@@ -22,7 +22,7 @@ def load_standard_patterns():
 
 @st.cache_resource
 def load_bert_model():
-    model_name = "textattack/bert-base-uncased-imdb"  # for sentiment (binary)
+    model_name = "textattack/bert-base-uncased-imdb"
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     model = AutoModelForSequenceClassification.from_pretrained(model_name)
     model.eval()
@@ -159,6 +159,7 @@ st.title("🛡️4-Layer Prompt Injection Detector")
 # User input
 user_prompt = st.text_area("Enter a prompt to check:", height=150)
 
+# API Key
 api_key = st.text_input("Enter your OpenAI API Key", type="password")
 
 # On submit
@@ -184,12 +185,6 @@ if st.button("🔍 Analyze Prompt"):
         combined = int(any([layer1, layer2, layer3, layer4]))
 
         result_map = {0: "✅ Safe", 1: "⚠️ Malicious"}
-        
-        st.markdown(result_map[layer1])
-        st.markdown(result_map[layer2])
-        st.markdown(result_map[layer3])
-        st.markdown(result_map[layer4])
-        st.markdown(result_map[combined])
 
         st.subheader("🔒 Final Decision")
         
@@ -217,4 +212,3 @@ if st.button("🔍 Analyze Prompt"):
         
             st.markdown("**💬 LLM Layer**")
             st.info(result_map[layer4])
-    
