@@ -131,17 +131,19 @@ def llm_layer(prompt: str) -> int:
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": SYSTEM_PROMPT},
-                {"role": "user", "content": user_prompt}
+                {"role": "user", "content": prompt}  # <-- fixed this line
             ],
             max_tokens=30,
             temperature=0
         )
-        output = response.choices[0].message.content
+        output = response.choices[0].message.content.strip()
+
         result = json.loads(output)
-        return int(result.get("injected", 1))  # default to 1 if anything is off
+        return int(result.get("injected", 1))  # default to 1 (Injected) if uncertain
     except Exception as e:
         print(f"LLM Error: {e}")
-        return 1  # treat as malicious by default
+        return 1  # default to injected
+
 
 # ========== UI Starts Here ==========
 st.title("🛡️4-Layer Prompt Injection Detector")
