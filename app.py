@@ -138,9 +138,6 @@ def llm_layer(prompt: str) -> int:
         )
         output = response.choices[0].message.content.strip()
 
-        st.text("LLM Raw Output:")
-        st.code(output)
-
         result = json.loads(output)
 
         injected = result.get("injected")
